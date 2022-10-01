@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Comment = require('../models/Comments.model');
+const Comment = require('../models/Comment.model');
 
 
 //--------- this has to be `/`  and can't just be anything. this is refering to the "routes" folder

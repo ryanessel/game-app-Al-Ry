@@ -1,11 +1,11 @@
-# # Dependency directory
-# node_modules
+# Dependency directory
+node_modules
 
-# # Debug log from npm
-# npm-debug.log
+# Debug log from npm
+npm-debug.log
 
-# # Environment Variables should NEVER be published
-# .env
+# Environment Variables should NEVER be published
+.env
 
-# # added for maintainance purposes - not best  practice
-# package-lock.json 
+# added for maintainance purposes - not best  practice
+package-lock.json 

@@ -12,8 +12,9 @@
 
   <body>
 <nav>
-<h1>CURRENT USER is: <strong>{{userInSession.username}}</strong></h1>
+
 {{#if userInSession}}
+<h1>CURRENT USER is: <strong>{{userInSession.username}}</strong></h1>
   <div>
 <a href="/change-password">Change Password</a>
 </div>
@@ -44,7 +45,7 @@
   </div>
 
   <div>
-  <a href="/movies">Movie List</a>
+  <a href="/movies">Threads</a>
   </div>
 
   <div>

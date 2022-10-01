@@ -17,3 +17,25 @@ a {
   padding: 20px;
   width: 100%;
 }
+
+.comments {
+  height: 200px;
+  background-color: rgb(174, 173, 173);
+  border:1px solid black;
+}
+
+.commentsHeader {
+  height: 40px;
+  background-color: rgba(73, 73, 215, 0.689);
+  
+  color: black;
+}
+
+.commentPoster {
+
+  color: black;
+  position: relative;
+  top: 0.6vw;
+
+
+}

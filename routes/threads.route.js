@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { isLoggedOut, isLoggedIn } = require("../middleware/route-guard");
-const Comment = require("../models/Comments.model");
+const Comment = require("../models/Comment.model");
 const Thread = require('../models/Thread.model');
 const User = require('../models/User.model');
 
@@ -15,7 +15,7 @@ router.get(`/movies`, (req, res, next) => {
     
 
 
-        res.render('./movies/movies', { movies: allThreadsDb});
+        res.render('./threads/threads', { threads: allThreadsDb});
         
     })
     .catch(error => {
