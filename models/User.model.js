@@ -25,13 +25,13 @@ const userSchema = new Schema(
       required: [true, 'Password is required.']
     },
 
-    likedMovies:  [{
+    createdThreads:  [{
       type: Schema.Types.ObjectId,
-      ref: 'Movie'
+      ref: 'Thread'
      
   }]
 
-    //need to add a "likedMovies" key and it is an array that takes stuff.
+
   },
   {
     timestamps: true

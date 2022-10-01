@@ -29,7 +29,7 @@ cookie: {
         maxAge: 60000
       }, // ADDED code below !!!
       store: MongoStore.create({
-        mongoUrl: process.env.MONGODB_URI || "mongodb://localhost/lab-movies-celebrities"// this tewls you that the session should be made in this db
+        mongoUrl: process.env.MONGODB_URI || "mongodb://localhost/game-forum-app"// this tewls you that the session should be made in this db
  
         // ttl => time to live
         // ttl: 60 * 60 * 24 // 60sec * 60min * 24h => 1 day

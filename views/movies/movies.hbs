@@ -1,6 +1,8 @@
 <h1>HELLO THIS IS THE MOVIES PAGE</h1>
 
-{{!-- <h1>USER CHECK {{userInSession.username}}</h1> --}}
+<h1>USER CHECK {{req.session.currentUser}}</h1>
+
+
 
 {{#each movies}}
     <div>Title: {{title}}</div>

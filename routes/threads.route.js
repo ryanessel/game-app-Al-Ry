@@ -1,20 +1,21 @@
 const router = require("express").Router();
-const Celeb = require("../models/Celebrity.model");
-const Movie = require('../models/Movie.model');
+const { isLoggedOut, isLoggedIn } = require("../middleware/route-guard");
+const Comment = require("../models/Comments.model");
+const Thread = require('../models/Thread.model');
 const User = require('../models/User.model');
 
 
 
 router.get(`/movies`, (req, res, next) => {
     // console.log(res.render(`./celebrities/celebrities`));
-    Movie.find()
-    .then(allMoviesDb => {
+    Thread.find()
+    .then(allThreadsDb => {
         // console.log("Got all movies", allMoviesDb);
  
     
 
 
-        res.render('./movies/movies', { movies: allMoviesDb});
+        res.render('./movies/movies', { movies: allThreadsDb});
         
     })
     .catch(error => {
@@ -32,11 +33,11 @@ router.get(`/movies`, (req, res, next) => {
 router.get(`/movies/create`, (req, res) =>{
     // res.render(`movies/new-movie.hbs`)
     
-    Celeb.find()
-    .then(allCelebsDb => {
-        console.log("Got all celebs", allCelebsDb);
+    Comment.find()
+    .then(allCommentsDb => {
+        console.log("Got all celebs", allCommentsDb);
  
-        res.render('./movies/new-movie.hbs', { celebs: allCelebsDb});
+        res.render('./movies/new-movie.hbs', { comments: allCommentsDb});
         
     })
     .catch(error => {
@@ -49,11 +50,12 @@ router.get(`/movies/create`, (req, res) =>{
 
     })
  
+    //SHOULD BE CREATE NEW THREAD
     router.post('/movies/create', (req, res, next) => {
        console.log({entireFormInput: req.body});// req.body is the thing catching the data sent from the html form method POST
-       const {title, genre, plot, cast} = req.body;
+       const {title, subject} = req.body;
        // adds new book to database from the form
-       Movie.create({title, genre, plot, cast})
+       Thread.create({title, subject})
            // .then(newBookForDb => console.log(`New book created: ${newBookForDb.title}`))
           
            //Celeb.findByIdAndUpdate()
@@ -70,13 +72,13 @@ router.get(`/movies/create`, (req, res) =>{
 
 
      router.get('/movies/:Id', (req, res, next)=>{
-        Movie.findById(req.params.Id).populate('cast')
-        .then(theMovie=>{
-            console.log({TESTTTTTT: theMovie})
+        Thread.findById(req.params.Id).populate('cast')
+        .then(theThread=>{
+            console.log({TESTTTTTT: theThread})
 
 
 
-            res.render('movies/movie-details', theMovie)
+            res.render('movies/movie-details', theThread)
         })
         .catch((err)=>{
             console.log(err);
@@ -88,7 +90,7 @@ router.get(`/movies/create`, (req, res) =>{
     
     router.post('/movies/:id/delete', (req, res, next)=>{
 
-        Movie.findByIdAndRemove(req.params.id)
+        Thread.findByIdAndRemove(req.params.id)
         .then((response)=>{
             res.redirect('/movies');
         })
@@ -100,19 +102,19 @@ router.get(`/movies/create`, (req, res) =>{
 
 
     router.get('/movies/:id/edit', (req, res, next) => {
-        Movie.findById(req.params.id).populate('cast')
-        .then(theMovie=>{
-            console.log({TESTTTTTT: theMovie})
+        Thread.findById(req.params.id).populate('cast')
+        .then(theThread=>{
+            console.log({TESTTTTTT: theThread})
 
 
 
             
         
-        Celeb.find()
-        .then(allCelebsDb => {
-            console.log("Got all celebs", allCelebsDb);
+        Comment.find()
+        .then(allCommentsDb => {
+            console.log("Got all celebs", allCommentsDb);
      
-            res.render('movies/edit-movie', {movie: theMovie, celebs: allCelebsDb})
+            res.render('movies/edit-movie', {thread: theThread, comments: allCommentsDb})
         })
         })
 
@@ -154,7 +156,7 @@ router.get(`/movies/create`, (req, res) =>{
 
     router.post('/movies/:id', (req, res, next)=>{
 
-        Movie.findByIdAndUpdate( req.params.id, {
+        Thread.findByIdAndUpdate( req.params.id, {
             title: req.body.title,
             genre: req.body.genre,
             plot: req.body.plot,
@@ -176,7 +178,7 @@ router.get(`/movies/create`, (req, res) =>{
     
     })
 // TRYING TO SEND LIEKD MOVIED ID's TO CURRENT SESSION UESER likedMovie ARRAY
-    router.post(`/like/:id`, (req, res, next) => {
+    router.post(`/like/:id`, isLoggedIn, (req, res, next) => {
 
        
 
@@ -187,7 +189,7 @@ router.get(`/movies/create`, (req, res) =>{
   
 
       
-         
+    // CAN ADJUST THIS LATER> THIS IS JUST FOR LIKES. DOESN"T MATTER THAT MUCH IN OUR CASE.  
         User.findByIdAndUpdate(req.session.currentUser._id, {
             
             

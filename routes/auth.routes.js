@@ -73,7 +73,7 @@ router.post(`/signup`, isLoggedOut, (req, res, next )=>{
 router.get(`/userProfile`, isLoggedIn, (req, res, next) => {
     //userInSession will be called on the user-profile.hbs file in the {{}}
 
-    User.findById(req.session.currentUser).populate('likedMovies')
+    User.findById(req.session.currentUser)  //.populate('likedMovies')
     .then(movies=>{
         console.log({TESTTTTTT: movies})
 

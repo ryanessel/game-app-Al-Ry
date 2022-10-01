@@ -10,6 +10,7 @@ require('./db');
 const express = require('express');
 
 
+
 // Handles the handlebars
 // https://www.npmjs.com/package/hbs
 const hbs = require('hbs');
@@ -21,7 +22,7 @@ require('./config')(app);
 
 
 // default value for title local
-const projectName = 'lab-movies-celebrities';
+const projectName = 'game-forum-app';
 const capitalized = string => string[0].toUpperCase() + string.slice(1).toLowerCase();
 
 app.locals.title = `${capitalized(projectName)}- Generated with Ironlauncher`;
@@ -31,8 +32,8 @@ app.locals.title = `${capitalized(projectName)}- Generated with Ironlauncher`;
 //--------- this can be whaterver. its when you call the local host -- this is about 
 //         |
 app.use('/', require('./routes/index'));
-app.use('/', require(`./routes/celebrities.routes`));
-app.use('/', require(`./routes/movies.route`));
+app.use('/', require(`./routes/comments.routes`));
+app.use('/', require(`./routes/threads.route`));
 app.use(`/`, require(`./routes/auth.routes`))
 
 
