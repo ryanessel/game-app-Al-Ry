@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { isObjectIdOrHexString } = require("mongoose");
 const { isLoggedOut, isLoggedIn } = require("../middleware/route-guard");
 const Comment = require("../models/Comment.model");
 const Thread = require('../models/Thread.model');
@@ -6,7 +7,7 @@ const User = require('../models/User.model');
 
 
 
-router.get(`/movies`, (req, res, next) => {
+router.get(`/threads`, (req, res, next) => {
     // console.log(res.render(`./celebrities/celebrities`));
     Thread.find()
     .then(allThreadsDb => {
@@ -37,7 +38,7 @@ router.get(`/movies/create`, (req, res) =>{
     .then(allCommentsDb => {
         console.log("Got all celebs", allCommentsDb);
  
-        res.render('./movies/new-movie.hbs', { comments: allCommentsDb});
+        res.render('./threads/new-thread.hbs', { comments: allCommentsDb});
         
     })
     .catch(error => {
@@ -53,14 +54,34 @@ router.get(`/movies/create`, (req, res) =>{
     //SHOULD BE CREATE NEW THREAD
     router.post('/movies/create', (req, res, next) => {
        console.log({entireFormInput: req.body});// req.body is the thing catching the data sent from the html form method POST
-       const {title, subject} = req.body;
+       const {title, text, id} = req.body;
        // adds new book to database from the form
-       Thread.create({title, subject})
+       Thread.create({title})
            // .then(newBookForDb => console.log(`New book created: ${newBookForDb.title}`))
           
            //Celeb.findByIdAndUpdate()
-          
-           .then(() => {
+        //    console.log(req.body.id)
+           .then(threadID => {
+            
+
+        Comment.create({text})
+        .then(postText => {
+            console.log(postText._id)
+         
+            Thread.findByIdAndUpdate(threadID, {
+              $push:  {threadComments: postText.id }
+              
+              
+            })
+            console.log({ID: id})
+            console.log({REQCHEQ: threadID.threadComments})
+            console.log({COMMENTID: postText.id})
+            console.log({THREADID: threadID.id})
+            
+
+        })
+
+
                res.redirect(`/movies`)
            })
            .catch(error => {
@@ -71,14 +92,37 @@ router.get(`/movies/create`, (req, res) =>{
 
 
 
-     router.get('/movies/:Id', (req, res, next)=>{
-        Thread.findById(req.params.Id).populate('cast')
-        .then(theThread=>{
-            console.log({TESTTTTTT: theThread})
+     router.get('/threads/:Id', (req, res, next)=>{
+       
+       
+       
+
+
+            
+        // Thread.findById(req.params.Id)
+        // .populate('comments')
+        // .then(allCommentsDb => {
 
 
 
-            res.render('movies/movie-details', theThread)
+
+        // })
+            Thread.findById(req.params.Id)
+            .populate({
+                path :'threadComments',
+                populate: {
+                    path: 'posterId'
+                }
+            })
+            .then(theThread=>{
+                console.log({TESTTTTTT: theThread})
+                res.render('threads/thread-details', {thread: theThread})
+            
+            
+
+
+
+
         })
         .catch((err)=>{
             console.log(err);
@@ -112,6 +156,9 @@ router.get(`/movies/create`, (req, res) =>{
         
         Comment.find()
         .then(allCommentsDb => {
+
+            
+
             console.log("Got all celebs", allCommentsDb);
      
             res.render('movies/edit-movie', {thread: theThread, comments: allCommentsDb})

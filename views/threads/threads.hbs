@@ -13,10 +13,39 @@
 
 <div class = "comments">
 <div class="commentsHeader">
-<div class ="commentPoster">Poster NAme</div>
+<div class ="commentPoster">Poster NAme {{!--title in each loop--}}</div>
 </div>
 </div>
 <br>
+
+
+{{!-- CORRECT WAY TO GET THREAD TITLE FORM OUR threads COLLECTION --}}
+{{threads.[0].title}}
+
+{{!-- Getting each Thread title to be listed --}}
+{{!-- will have  the comments array but no need to list them on this page --}}
+{{!-- Populate comments array on the thread details page. --}}
+{{#each threads}}
+<div>
+
+{{title}}
+ <a href="/movies/{{_id}}">View Thread</a>
+{{!-- 
+<div class = "comments">
+<div class="commentsHeader">
+<div class ="commentPoster">Poster NAme</div>
+</div>
+</div>
+<br> --}}
+
+</div>
+
+
+
+{{/each}}
+
+
+
 {{!--END - TEMPLATE FOR COMMENTS  --}}
 {{#each movies}} {{!--CHECK THE ROUTES AS YOU ADJUT YOU CAN SEE THE OBJECTS THAT NEED TO BE CHANGED  --}}
     <div>Title: {{title}}</div>

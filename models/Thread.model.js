@@ -11,7 +11,7 @@ const threadSchema = new Schema ({
     },
     threadComments:  [{
             type: Schema.Types.ObjectId,
-            ref: 'Comments'
+            ref: 'Comment'
         }]
     
     

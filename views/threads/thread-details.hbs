@@ -1,35 +1,29 @@
 
 
-<h1>MOVIE DETAILS</h1>
-<strong>TITLE:</strong> 
-<div>
-  {{title}}
+<h1>{{thread.title}}</h1>
+
+
+<h2>threadComments Check {{thread.threadComments}}</h2>
+<h2>{{comments}}</h2>
+
+
+
+
+{{#each thread.threadComments}}
+<h2>{{comments.[0].posterId.username}}</h2>
+
+<div class = "comments">
+<div class="commentsHeader">
+<div class ="commentPoster">{{posterId.username}}</div>
 
 </div>
-
-<strong>GENRE:</strong>
-<div>
-   {{genre}}
+{{text}}
 </div>
-
-
-<strong>PLOT:</strong>
-<div>
-   {{plot}}
-</div>
-
-
-
-<strong>CAST:</strong>
-
-{{#each cast}}
-
-<div>Name: {{name}}</div>
-<div>Occupation: {{occupation}}</div>
-<div>Catchphrase: {{catchphrase}}</div>
 <br>
 
+
 {{/each}}
+
 <form action="/movies/{{_id}}/delete" method="post">
     <button>Delete MOVIE </button>
 </form>

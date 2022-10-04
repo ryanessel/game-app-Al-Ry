@@ -9,7 +9,24 @@ const commentSchema = new Schema ({
   
     text: {
         type: String
+    },
+
+
+    posterId:  {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
+
+    // have current session user ID?
+
+   
+    /*    posterId:  {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }*/
+    
+    //--- > when you Create the comment, you make it so that data passed to this key is the current USER ID. This way you can populate all the User who posted info on the thread id PAGE thus making listing the name easy
+    // something like above would set it up so that 
 
 })
 
