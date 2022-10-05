@@ -3,8 +3,8 @@
 <h1>{{thread.title}}</h1>
 
 
-<h2>threadComments Check {{thread.threadComments}}</h2>
-<h2>{{comments}}</h2>
+{{!-- <h2>threadComments Check {{thread.threadComments}}</h2>
+<h2>{{comments}}</h2> --}}
 
 
 
@@ -24,7 +24,14 @@
 
 {{/each}}
 
-<form action="/movies/{{_id}}/delete" method="post">
-    <button>Delete MOVIE </button>
+
+
+<form action="/threads/{{_id}}" method="post">
+    <button>New Post Test</button>
+</form>
+
+
+<form action="/threads/{{_id}}/delete" method="post">
+    <button>Delete Post</button>
 </form>
 

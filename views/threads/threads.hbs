@@ -20,7 +20,7 @@
 
 
 {{!-- CORRECT WAY TO GET THREAD TITLE FORM OUR threads COLLECTION --}}
-{{threads.[0].title}}
+{{!-- {{threads.[0].title}} --}}
 
 {{!-- Getting each Thread title to be listed --}}
 {{!-- will have  the comments array but no need to list them on this page --}}
@@ -29,14 +29,8 @@
 <div>
 
 {{title}}
- <a href="/movies/{{_id}}">View Thread</a>
-{{!-- 
-<div class = "comments">
-<div class="commentsHeader">
-<div class ="commentPoster">Poster NAme</div>
-</div>
-</div>
-<br> --}}
+ <a href="/threads/{{_id}}">View Thread</a>
+
 
 </div>
 
@@ -46,35 +40,8 @@
 
 
 
-{{!--END - TEMPLATE FOR COMMENTS  --}}
-{{#each movies}} {{!--CHECK THE ROUTES AS YOU ADJUT YOU CAN SEE THE OBJECTS THAT NEED TO BE CHANGED  --}}
-    <div>Title: {{title}}</div>
-    <a href="/movies/{{_id}}">Details</a>
-
-    <div> <a href="/movies/{{_id}}/edit">Edit Movie</a></div>
-
-              <form id="like-form" action="/like/{{_id}}" name="likedMovies" value={{_id}} method="POST">
-            <button>Like!</button>
-           </form> 
-
-<h1>MOVIE ID: {{_id}}</h1>
-
-{{/each}}
-
-{{!-- 
-
-to hide this button if there is no active form desu.
-
-{{#unless currentUser}}
-              <form id="like-form" action="/like/{{_id}}" method="POST">
-            <button>Like!</button>
-           </form> 
 
 
- {{/unless}}
-
-
- --}}
 
 
  

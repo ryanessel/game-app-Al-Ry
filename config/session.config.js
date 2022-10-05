@@ -26,7 +26,7 @@ cookie: {
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        maxAge: 60000
+        maxAge: 600000 // affects the legnth of the session
       }, // ADDED code below !!!
       store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI || "mongodb://localhost/game-forum-app"// this tewls you that the session should be made in this db

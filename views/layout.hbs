@@ -24,6 +24,13 @@
 <a href="/userProfile">Profile</a>
 </div>
 
+{{#if currentUser}}
+
+             <form id="logout-form" action="/logout" method="POST">
+            <button>Logout</button>
+           </form> 
+{{else}}
+
   <div>
   <a href="/signup">Sign Up</a>
   </div>
@@ -31,25 +38,19 @@
   <div>
   <a href="/login">Log In</a>
   </div>
-             <form id="logout-form" action="/logout" method="POST">
-            <button>Logout</button>
-           </form> 
+{{/if}}
 
 
-  <div>
-  <a href="/celebs/create">Create a new cleb</a>
-  </div>
+
   
-  <div>
-  <a href="/celebs">Cleb list</a>
-  </div>
+  
 
   <div>
   <a href="/threads">Threads</a>
   </div>
 
   <div>
-  <a href="/movies/create">Add amovie</a>
+  <a href="/threads/create">[Start A New Thread]</a>
   </div>
 
 

@@ -31,14 +31,14 @@ router.get(`/threads`, (req, res, next) => {
 
 
 
-router.get(`/movies/create`, (req, res) =>{
+router.get(`/threads/create`, isLoggedIn, (req, res) =>{
     // res.render(`movies/new-movie.hbs`)
     
     Comment.find()
     .then(allCommentsDb => {
-        console.log("Got all celebs", allCommentsDb);
+        console.log("Got all comments", allCommentsDb);
  
-        res.render('./threads/new-thread.hbs', { comments: allCommentsDb});
+        res.render('./threads/new-thread.hbs');
         
     })
     .catch(error => {
@@ -52,37 +52,41 @@ router.get(`/movies/create`, (req, res) =>{
     })
  
     //SHOULD BE CREATE NEW THREAD
-    router.post('/movies/create', (req, res, next) => {
+    router.post('/threads/create', (req, res, next) => {
        console.log({entireFormInput: req.body});// req.body is the thing catching the data sent from the html form method POST
-       const {title, text, id} = req.body;
+       const {title, text} = req.body;
        // adds new book to database from the form
-       Thread.create({title})
-           // .then(newBookForDb => console.log(`New book created: ${newBookForDb.title}`))
-          
-           //Celeb.findByIdAndUpdate()
-        //    console.log(req.body.id)
-           .then(threadID => {
+      
             
-
-        Comment.create({text})
+        // when you .create snth you can call all the schema
+        Comment.create({text, posterId: req.session.currentUser._id})
         .then(postText => {
-            console.log(postText._id)
-         
-            Thread.findByIdAndUpdate(threadID, {
-              $push:  {threadComments: postText.id }
+        //     console.log(postText._id)
+        //  let commentId = postText._id
+        //     Thread.findByIdAndUpdate(threadID._id, {
+        //       $push:  {threadComments: commentId }
               
               
-            })
-            console.log({ID: id})
-            console.log({REQCHEQ: threadID.threadComments})
-            console.log({COMMENTID: postText.id})
-            console.log({THREADID: threadID.id})
-            
+        //     })
 
+        Thread.create({title, threadComments: [postText._id]})
+        // .then(newBookForDb => console.log(`New book created: ${newBookForDb.title}`))
+       
+        //Celeb.findByIdAndUpdate()
+     //    console.log(req.body.id)
+        .then(newThread => {
+           
+            console.log({REQCHEQ: newThread.threadComments})
+            console.log({COMMENTID: postText.id})
+            console.log({THREADID: newThread._id})
+
+            console.log({postText, newThread, commentAuthor: postText.posterId});
+            
+            res.redirect(`/threads/${newThread._id}`)
         })
 
 
-               res.redirect(`/movies`)
+              
            })
            .catch(error => {
                next(error)
@@ -94,11 +98,6 @@ router.get(`/movies/create`, (req, res) =>{
 
      router.get('/threads/:Id', (req, res, next)=>{
        
-       
-       
-
-
-            
         // Thread.findById(req.params.Id)
         // .populate('comments')
         // .then(allCommentsDb => {
@@ -115,7 +114,7 @@ router.get(`/movies/create`, (req, res) =>{
                 }
             })
             .then(theThread=>{
-                console.log({TESTTTTTT: theThread})
+                console.log({TESTTTTTT: theThread.threadComments, threads: theThread.threadComments[0]})
                 res.render('threads/thread-details', {thread: theThread})
             
             
@@ -129,6 +128,18 @@ router.get(`/movies/create`, (req, res) =>{
         })
     })
 
+
+
+    router.post('/threads/:id', (req, res, next) => {
+
+
+        Thread.findByIdAndUpdate(req.params._id, {
+            $push:  {threadComments: commentId }
+            
+            
+          })
+
+    })
 
   
     
