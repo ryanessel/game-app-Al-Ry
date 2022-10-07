@@ -24,10 +24,17 @@
 
 {{/each}}
 
+<div>
+   BIG TEST {{thread._id}}
+</div>
 
+<form action="/threads/{{thread._id}}" method="post">
+    <button>Post</button>
+    <div>
+    {{!-- <input class ="commentBox" type="text" name="text"> --}}
+    <textarea data-name="com"  placeholder="Comment" class="commentBox" name="text" autocomplete="off"></textarea>
+    </div>
 
-<form action="/threads/{{_id}}" method="post">
-    <button>New Post Test</button>
 </form>
 
 

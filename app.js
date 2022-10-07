@@ -26,7 +26,7 @@ const projectName = 'game-forum-app';
 const capitalized = string => string[0].toUpperCase() + string.slice(1).toLowerCase();
 
 app.locals.title = `${capitalized(projectName)}- Generated with Ironlauncher`;
-//makes it so that you can use the current USER avaialibe in all the HBS files
+//makes it so that you can access the current USER avaialibe in all the HBS files
 app.use((req, res, next) => {
     res.locals.currentUser = req.session.currentUser;
     next();

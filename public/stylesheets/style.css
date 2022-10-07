@@ -40,3 +40,12 @@ a {
 
 }
 
+
+.commentBox {
+
+  height: 142px;
+  width: 450px;
+  resize: both;
+  
+}
+

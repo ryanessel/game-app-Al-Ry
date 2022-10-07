@@ -22,11 +22,7 @@ router.get(`/comments`, (req, res, next) => {
    });
 
 
-  
-  router.get(`/celebs/create`, (req, res) =>{
-   res.render(`celebrities/new-celebrity.hbs`)
-   
-   })
+
 
    router.post('/celebs/create', (req, res, next) => {
       console.log({entireFormInput: req.body});// req.body is the thing catching the data sent from the html form method POST

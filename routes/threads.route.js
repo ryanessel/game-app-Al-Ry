@@ -95,6 +95,11 @@ router.get(`/threads/create`, isLoggedIn, (req, res) =>{
      });
 
 
+//POST ROUTE ADDS COMMENT ID to Thread "threadComments"
+
+
+
+
 
      router.get('/threads/:Id', (req, res, next)=>{
        
@@ -129,16 +134,34 @@ router.get(`/threads/create`, isLoggedIn, (req, res) =>{
     })
 
 
+    router.post('/threads/:id', isLoggedIn, (req, res, next) => {
+        console.log({THREADREQ: req.params.id})
+        const {title, text} = req.body;
+        Comment.create({text, posterId: req.session.currentUser._id})
+        .then(postComment => {
+    
+            console.log({Comment: postComment})
 
-    router.post('/threads/:id', (req, res, next) => {
-
-
-        Thread.findByIdAndUpdate(req.params._id, {
-            $push:  {threadComments: commentId }
+            
+        Thread.findByIdAndUpdate(req.params.id, {
+            
+            $push:  {threadComments: postComment._id }
             
             
           })
 
+          .then(response => {
+            
+          })
+          console.log({REQPARAMS2: req.params})
+         console.log({threadComments: postComment._id })
+         res.redirect(`/threads/${req.params.id}`)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    
+    
     })
 
   
