@@ -48,21 +48,16 @@ router.get('/comment/:id/edit', (req, res, next) => {
 
 
 //POST ROUTE FOR COMMENT EDIT PAGE
-router.post('/comment/:id', (req, res, next)=>{
+router.post('/comment/:id/edit', (req, res, next)=>{
 
     Comment.findByIdAndUpdate( req.params.id, {
         text: req.body.text,
-    
-       
-
     })
-    
-    
-    
+      
     .then((response)=>{
         console.log({POSTRESPONSE: response})
         res.redirect(`/threads/${req.body.threadId}`);
-
+        console.log({POSTRESPONSE: response})
     }).catch((err)=>{
         console.log(err);
     })
@@ -70,25 +65,27 @@ router.post('/comment/:id', (req, res, next)=>{
 
 })
 
+router.post('/comment/:id/delete', (req, res, next)=>{
+
+    Comment.findByIdAndRemove(req.params.id)
+    .then((response)=>{
+        console.log({THEPOSTRESPONSE:response})
+       
+        console.log(req.body.threadProper)
+        res.redirect(`/threads`);
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+
+});
 
 
 
 
-   router.post('/celebs/create', (req, res, next) => {
-      console.log({entireFormInput: req.body});// req.body is the thing catching the data sent from the html form method POST
-      const {name, occupation, catchphrase, _id} = req.body;
-      // adds new book to database from the form
-      Comment.create({name, occupation, catchphrase, _id})
-          // .then(newBookForDb => console.log(`New book created: ${newBookForDb.title}`))
-          .then(() => {
-              res.redirect(`/celebs`)
-          })
-          .catch(error => {
-              next(error)
-          });
-  
-    });
-  
+
+
+
 
 
 

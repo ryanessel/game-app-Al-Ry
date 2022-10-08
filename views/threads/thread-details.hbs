@@ -26,7 +26,12 @@
 {{!-- if   Current user in session === Poster Id then avlaiable. --}}
 {{#if canUserModify}}
   <div> <a href="/comment/{{_id}}/edit">EDIT COMMENT</a></div>
-<button class ="deleteCommetBtn"> DELETE COMMENT</button>
+<form action="/comment/{{_id}}/delete" method="post">
+    <button>DELETE COMMENT</button>
+     {{#if threadId}}
+  <input style="display: none" type="text" name="threadId" value="{{threadProper}}" />
+ {{/if}}
+</form>
 
 {{else}}
 
@@ -57,7 +62,13 @@
 {{!-- if   Current user in session === Poster Id then avlaiable. --}}
 {{#if canUserModify}}
   <div> <a href="/comment/{{_id}}/edit?threadId={{../threadProper._id}}">EDIT COMMENT</a></div>
-<button class ="deleteCommetBtn"> DELETE COMMENT</button>
+<form action="/comment/{{_id}}/delete" method="post">
+    <button>DELETE COMMENT</button>
+     {{#if threadId}}
+  <input style="display: none" type="text" name="threadId" value="{{threadProper}}" />
+ {{/if}}
+</form>
+
 
 {{else}}
 

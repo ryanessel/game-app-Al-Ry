@@ -170,45 +170,10 @@ router.get(`/threads/create`, isLoggedIn, (req, res) =>{
 
   
     
-    router.post('/movies/:id/delete', (req, res, next)=>{
 
-        Thread.findByIdAndRemove(req.params.id)
-        .then((response)=>{
-            res.redirect('/movies');
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
-    
-    });
-
-
-    router.get('/movies/:id/edit', (req, res, next) => {
-        Thread.findById(req.params.id).populate('cast')
-        .then(theThread=>{
-            console.log({TESTTTTTT: theThread})
-
-
-
-            
-        
-        Comment.find()
-        .then(allCommentsDb => {
-
-            
-
-            console.log("Got all celebs", allCommentsDb);
-     
-            res.render('movies/edit-movie', {thread: theThread, comments: allCommentsDb})
-        })
-        })
-
-     
-        .catch(err => {console.log({err})})
-    })
     
 
-
+//DELETE COMMENT
 
 
 
