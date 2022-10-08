@@ -72,7 +72,7 @@ router.post('/comment/:id/delete', (req, res, next)=>{
         console.log({THEPOSTRESPONSE:response})
        
         console.log(req.body.threadProper)
-        res.redirect(`/threads`);
+        res.redirect('back');
     })
     .catch((err)=>{
         console.log(err);
