@@ -8,27 +8,76 @@
 
 
 
-
-{{#each thread.threadComments}}
+{{#unless currentUser}}
+{{#each threadProper.threadComments}}
 <h2>{{comments.[0].posterId.username}}</h2>
 
 <div class = "comments">
 <div class="commentsHeader">
-<div class ="commentPoster">{{posterId.username}}</div>
+<div class ="commentPoster">USERNAME{{posterId.username}} COMMENT POSTER ID{{posterId._id}}  </div>
+
 
 </div>
 {{text}}
+
 </div>
+<div class ="commentBtns">
+{{!-- <button class ="editCommentBtn"> EDIT COMMENT</button> --}}
+{{!-- if   Current user in session === Poster Id then avlaiable. --}}
+{{#if canUserModify}}
+  <div> <a href="/comment/{{_id}}/edit">EDIT COMMENT</a></div>
+<button class ="deleteCommetBtn"> DELETE COMMENT</button>
+
+{{else}}
+
+
+{{/if}}
+</div>
+{{!-- /if  --}}
 <br>
-
-
 {{/each}}
+{{/unless}}
+
+
+{{#if currentUser}}
+{{#each comments.threadComments}}
+<h2>{{comments.[0].posterId.username}}</h2>
+
+<div class = "comments">
+<div class="commentsHeader">
+<div class ="commentPoster">USERNAME{{posterId.username}} COMMENT POSTER ID{{posterId._id}}  </div>
+
+
+</div>
+{{text}}
+
+</div>
+<div class ="commentBtns">
+{{!-- <button class ="editCommentBtn"> EDIT COMMENT</button> --}}
+{{!-- if   Current user in session === Poster Id then avlaiable. --}}
+{{#if canUserModify}}
+  <div> <a href="/comment/{{_id}}/edit?threadId={{../threadProper._id}}">EDIT COMMENT</a></div>
+<button class ="deleteCommetBtn"> DELETE COMMENT</button>
+
+{{else}}
+
+
+{{/if}}
+</div>
+{{!-- /if  --}}
+<br>
+{{/each}}
+{{/if}}
+<div>
+   BIG TEST {{threadProper._id}}
+  
+</div>
 
 <div>
-   BIG TEST {{thread._id}}
+     USER IN SESSION: {{currentUser._id}}
 </div>
 
-<form action="/threads/{{thread._id}}" method="post">
+<form action="/threads/{{threadProper._id}}" method="post">
     <button>Post</button>
     <div>
     {{!-- <input class ="commentBox" type="text" name="text"> --}}

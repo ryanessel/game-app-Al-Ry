@@ -21,6 +21,56 @@ router.get(`/comments`, (req, res, next) => {
  
    });
 
+//    router.get(`/editComment`, (req, res, next) => {
+//     // console.log(res.render(`./celebrities/celebrities`));
+
+//     res.render(`threads/edit-comment`)
+ 
+//    });
+
+// GET ROUTE FOR COMMENT EDIT PAGE
+router.get('/comment/:id/edit', (req, res, next) => {
+    Comment.findById(req.params.id)
+    .then(commentToEdit=>{
+        console.log({COMMENTTEST: commentToEdit})
+
+
+        res.render(`threads/edit-comment`, {comment: commentToEdit, threadId: !!req.query.threadId ? req.query.threadId : false})
+        
+    
+
+    })
+
+ 
+    .catch(err => {console.log({err})})
+})
+
+
+
+//POST ROUTE FOR COMMENT EDIT PAGE
+router.post('/comment/:id', (req, res, next)=>{
+
+    Comment.findByIdAndUpdate( req.params.id, {
+        text: req.body.text,
+    
+       
+
+    })
+    
+    
+    
+    .then((response)=>{
+        console.log({POSTRESPONSE: response})
+        res.redirect(`/threads/${req.body.threadId}`);
+
+    }).catch((err)=>{
+        console.log(err);
+    })
+
+
+})
+
+
 
 
 

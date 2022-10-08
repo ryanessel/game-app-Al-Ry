@@ -11,12 +11,8 @@ router.get(`/threads`, (req, res, next) => {
     // console.log(res.render(`./celebrities/celebrities`));
     Thread.find()
     .then(allThreadsDb => {
-        // console.log("Got all movies", allMoviesDb);
- 
-    
 
-
-        res.render('./threads/threads', { threads: allThreadsDb});
+        res.render('./threads/threads', {threads: allThreadsDb});
         
     })
     .catch(error => {
@@ -24,8 +20,7 @@ router.get(`/threads`, (req, res, next) => {
  
         next(error);
     })
- 
- 
+
    });
 
 
@@ -75,7 +70,7 @@ router.get(`/threads/create`, isLoggedIn, (req, res) =>{
         //Celeb.findByIdAndUpdate()
      //    console.log(req.body.id)
         .then(newThread => {
-           
+           //※※※User.findByIdandUpdate(req.session.currentUser._id, {$push : {createdThreads: newThread._id}})※※※
             console.log({REQCHEQ: newThread.threadComments})
             console.log({COMMENTID: postText.id})
             console.log({THREADID: newThread._id})
@@ -102,31 +97,40 @@ router.get(`/threads/create`, isLoggedIn, (req, res) =>{
 
 
      router.get('/threads/:Id', (req, res, next)=>{
+        console.log({CHECKINGparams: req.params})
        
-        // Thread.findById(req.params.Id)
-        // .populate('comments')
-        // .then(allCommentsDb => {
+        Thread.findById(req.params.Id)
+        .populate({
+            path :'threadComments',
+            populate: {
+                path: 'posterId'
+            }
+        })
+        .then(theThread=>{
 
+            if(!req.session.currentUser) {
+                console.log({NOTLOGGEDIN: theThread})
+                res.render(`threads/thread-details`, {threadProper: theThread})
+            }
+            else if (req.session.currentUser) { 
+                   
 
-
-
-        // })
-            Thread.findById(req.params.Id)
-            .populate({
-                path :'threadComments',
-                populate: {
-                    path: 'posterId'
+            console.log({RESPONSE: theThread})
+            const updatedThreads = [...theThread.threadComments].map(comments => {
+                console.log({thread: comments._doc, user: req.session.currentUser, match: String(comments._doc.posterId._id) === String(req.session.currentUser._id)});
+                return {
+                    ...comments._doc,
+                    canUserModify:!!req.session.currentUser && String(comments._doc.posterId._id) === String(req.session.currentUser._id)
                 }
-            })
-            .then(theThread=>{
-                console.log({TESTTTTTT: theThread.threadComments, threads: theThread.threadComments[0]})
-                res.render('threads/thread-details', {thread: theThread})
-            
-            
-
-
-
-
+            });
+           
+            res.render('threads/thread-details', {
+                        comments:{
+                            ...theThread,
+                            threadComments: updatedThreads
+                        }, threadProper:theThread }
+            )
+        }
         })
         .catch((err)=>{
             console.log(err);

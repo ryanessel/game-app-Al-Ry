@@ -1,0 +1,35 @@
+<h1>COMMENT COLLECTION TEST</h1>
+<h1>HERE: {{comment}}</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>EDIT COMMENT</h2>
+{{!-- {{_id}} --}}
+{{!-- the action portion of the form is what determines the route that you will be calling when you submit the form --}}
+<form action="/comment/{{comment._id}}" method="post">
+ {{!-- the method of the form is what determines the request type that is being made (get/post) --}}
+
+
+    <label for="editingComment">
+      COMMENT:
+
+     
+         <textarea  id="editingComment"   class="commentBox" name="text"  value="{{comment.text}}">{{comment.text}}</textarea>
+    </label>
+
+ </label>
+ {{#if threadId}}
+  <input style="display: none" type="text" name="threadId" value="{{threadId}}" />
+ {{/if}}
+
+    <button>Update</button>
+</form>
