@@ -1,6 +1,18 @@
+<h1>
+  thread ID : {{threadProper.oPiD}}
+</h1>
+<h1>
+     USER IN SESSION: {{currentUser._id}}
+</h1>
+<div class="threadTitleLine">
+<h1>{{threadProper.title}}</h1> 
+{{#if canRemoveThread}}
 
+<span><form class="threadDelBtn" action="/thread/{{threadProper._id}}/delete" method="post">
+    <button>DELETE THREAD</button></form></span>
 
-<h1>{{thread.title}}</h1>
+{{/if}}
+</div>
 
 
 {{!-- <h2>threadComments Check {{thread.threadComments}}</h2>
@@ -84,9 +96,7 @@
   
 </div>
 
-<div>
-     USER IN SESSION: {{currentUser._id}}
-</div>
+
 
 <form action="/threads/{{threadProper._id}}" method="post">
     <button>Post</button>
@@ -97,8 +107,4 @@
 
 </form>
 
-
-<form action="/threads/{{_id}}/delete" method="post">
-    <button>Delete Post</button>
-</form>
 

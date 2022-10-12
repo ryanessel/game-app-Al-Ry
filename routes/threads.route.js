@@ -64,7 +64,7 @@ router.get(`/threads/create`, isLoggedIn, (req, res) =>{
               
         //     })
 
-        Thread.create({title, threadComments: [postText._id]})
+        Thread.create({title, threadComments: [postText._id], oPiD: req.session.currentUser._id})
         // .then(newBookForDb => console.log(`New book created: ${newBookForDb.title}`))
        
         //Celeb.findByIdAndUpdate()
@@ -115,20 +115,29 @@ router.get(`/threads/create`, isLoggedIn, (req, res) =>{
             else if (req.session.currentUser) { 
                    
 
-            console.log({RESPONSE: theThread})
+            console.log({LOGGEDIN: theThread.oPiD})
             const updatedThreads = [...theThread.threadComments].map(comments => {
-                console.log({thread: comments._doc, user: req.session.currentUser, match: String(comments._doc.posterId._id) === String(req.session.currentUser._id)});
+                // console.log({thread: comments._doc, user: req.session.currentUser, match: String(comments._doc.posterId._id) === String(req.session.currentUser._id)});
+                console.log({THREADID:String(theThread.oPiD), CURRENTUSER:String(req.session.currentUser._id)})
+
                 return {
                     ...comments._doc,
                     canUserModify:!!req.session.currentUser && String(comments._doc.posterId._id) === String(req.session.currentUser._id)
+                   
                 }
+
+
+
             });
            
+            
+
+
             res.render('threads/thread-details', {
                         comments:{
                             ...theThread,
                             threadComments: updatedThreads
-                        }, threadProper:theThread }
+                        }, threadProper:theThread,  canRemoveThread: !!req.session.currentUser && String(theThread.oPiD) === String(req.session.currentUser._id) }
             )
         }
         })
@@ -170,8 +179,20 @@ router.get(`/threads/create`, isLoggedIn, (req, res) =>{
 
   
     
+    router.post('/thread/:id/delete', (req, res, next)=>{
 
+        Thread.findByIdAndRemove(req.params.id)
+        .then((response)=>{
+            console.log({THEPOSTRESPONSE:response})
+           
+            console.log(req.body.threadProper)
+            res.redirect('/threads');
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     
+    });
 
 //DELETE COMMENT
 

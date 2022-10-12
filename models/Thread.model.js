@@ -12,7 +12,12 @@ const threadSchema = new Schema ({
     threadComments:  [{
             type: Schema.Types.ObjectId,
             ref: 'Comment'
-        }]
+        }],
+
+        oPiD:  {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
     
     
 
