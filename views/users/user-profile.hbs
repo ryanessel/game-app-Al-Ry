@@ -3,46 +3,34 @@
 {{!-- views/users/user-profile.hbs --}}
  
  {{!-- userInSession in the if must match below> --}}
-{{#if userInSession}} 
+
   <h2>Welcome, {{ userInSession.username }}!</h2>
-  <p>{{userInSession.username}}'s Profile Page</p>
+  <h2>{{userInSession.username}}'s Profile Page</h2>
   <button>
     <a href="/userProfile">Reload the page</a>
   </button>
 
-  <h3>LIKED MOVIES</h3>
-{{#each properMovies.likedMovies}}
+  <h1><strong>YOUR THREADS:</strong></h1>
 
 
+
+
+{{#each threads}}
 <div>
-<a href="movies/{{this._id}}">See Movie Details</a>
+
+ 
+ {{#if isItMyThread}}
+{{title}}
+{{_id}}
+ <a href="/threads/{{_id}}">View Thread</a>
 </div>
 
+{{/if}}
 
-<div>
-  {{this.title}}
-</div>
 {{/each}}
 
 
 
 
-  <h1>movie id example {{properMovies.likedMovies}}</h1>
-{{else}}
-  <p>Still no logged in user, sorry!</p>
-{{/if}}
 
 
-
-{{!-- {{#each userInSession}}
-
-<div>
-{{this.likedMovies}}
-
-</div>
-
-{{/each}} --}}
-
-
-{{!--  this still no logged in user is because we have not set up 
-as session (sessions are related to cookies) --}}

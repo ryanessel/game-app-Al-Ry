@@ -9,6 +9,7 @@ const { route } = require('./index');
 
 //requiring the auth "custom" middlware //
 const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
+const Thread = require('../models/Thread.model');
 
 
 //START-SIGNUP ROUTES
@@ -76,8 +77,21 @@ router.get(`/userProfile`, isLoggedIn, (req, res, next) => {
     User.findById(req.session.currentUser)  //.populate('likedMovies')
     .then(movies=>{
         console.log({TESTTTTTT: movies})
+      Thread.find()
+      .then(allThreads => {
+        console.log(`※※※※※※※※PROFILE CONSOLE LOGS※※※※※※※※`);
+        for (let i = 0; i< allThreads.length; i++) {
+        console.log({THREADS: allThreads[i].oPiD});
+      }
+        console.log({CHECKINGID:allThreads.oPiD })
+        console.log({CURRENTUSER: req.session.currentUser._id});
 
-        res.render('users/user-profile', { userInSession: req.session.currentUser, properMovies: movies });
+
+        res.render('users/user-profile', { userInSession: req.session.currentUser, threads: allThreads, isItMyThread: !!req.session.currentUser && String(allThreads.oPiD) === String(req.session.currentUser._id)});
+
+
+      })
+     
 
         
     })
