@@ -72,34 +72,22 @@ router.post(`/signup`, isLoggedOut, (req, res, next )=>{
 //START - PROFILE PAGE
 
 router.get(`/userProfile`, isLoggedIn, (req, res, next) => {
-    //userInSession will be called on the user-profile.hbs file in the {{}}
+  //userInSession will be called on the user-profile.hbs file in the {{}}
 
-    User.findById(req.session.currentUser)  //.populate('likedMovies')
-    .then(movies=>{
-        console.log({TESTTTTTT: movies})
-      Thread.find()
-      .then(allThreads => {
-        console.log(`※※※※※※※※PROFILE CONSOLE LOGS※※※※※※※※`);
-        for (let i = 0; i< allThreads.length; i++) {
-        console.log({THREADS: allThreads[i].oPiD});
-      }
-        console.log({CHECKINGID:allThreads.oPiD })
-        console.log({CURRENTUSER: req.session.currentUser._id});
+  User.findById(req.session.currentUser)  //.populate('likedMovies')
+  .then(movies=>{
+      console.log({TESTTTTTT: movies})
+    Thread.find({oPiD: req.session.currentUser._id})
+    .then(allThreads => {
+      
+      res.render('users/user-profile', { userInSession: req.session.currentUser, threads: allThreads, isItMyThread: !!req.session.currentUser && String(allThreads.oPiD) === String(req.session.currentUser._id)});
 
 
-        res.render('users/user-profile', { userInSession: req.session.currentUser, threads: allThreads, isItMyThread: !!req.session.currentUser && String(allThreads.oPiD) === String(req.session.currentUser._id)});
-
-
-      })
-     
-
-        
     })
 
+  })
 
-  
-  
-  });
+});
 
 
 //END - PROFILE PAGE

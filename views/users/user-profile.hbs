@@ -10,12 +10,6 @@
   <h2>{{userInSession.username}}'s Profile Page</h2> --}}
   
   <br>
-
-  <button class="gamefaq-btn">
-    <a href="/userProfile">Reload the page</a>
-  </button>
-  
-  <br>
   <br>  
   
   <h3><strong>YOUR THREADS:</strong></h3>
@@ -26,13 +20,11 @@
 <div>
 
  
- {{#if isItMyThread}}
 {{title}}
-{{_id}}
  <a href="/threads/{{_id}}">View Thread</a>
 </div>
 
-{{/if}}
+
 
 {{/each}}
 

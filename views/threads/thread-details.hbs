@@ -74,7 +74,8 @@
 {{!-- <button class ="editCommentBtn"> EDIT COMMENT</button> --}}
 {{!-- if   Current user in session === Poster Id then avlaiable. --}}
 {{#if canUserModify}}
-  <div> <a href="/comment/{{_id}}/edit?threadId={{../threadProper._id}}">EDIT COMMENT</a></div>
+  <button class="gamefaq-btn" onclick="window.location.href='/comment/{{_id}}/edit?threadId={{../threadProper._id}}';" >EDIT COMMENT</button>
+  <br>
   <br>
 <form action="/comment/{{_id}}/delete" method="post">
     <button class="gamefaq-btn">DELETE COMMENT</button>
