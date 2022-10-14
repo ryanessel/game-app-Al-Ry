@@ -1,19 +1,26 @@
-<h1>Profile Page</h1>
-<h1>{{userInSession.username}}</h1>
+<body class="profile-page">
+  
+<h3>Profile Page</h3>
+<h4>{{userInSession.username}}</h4>
 {{!-- views/users/user-profile.hbs --}}
  
  {{!-- userInSession in the if must match below> --}}
 
-  <h2>Welcome, {{ userInSession.username }}!</h2>
-  <h2>{{userInSession.username}}'s Profile Page</h2>
-  <button>
+  {{!-- <h2>Welcome, {{ userInSession.username }}!</h2>
+  <h2>{{userInSession.username}}'s Profile Page</h2> --}}
+  
+  <br>
+
+  <button class="gamefaq-btn">
     <a href="/userProfile">Reload the page</a>
   </button>
+  
+  <br>
+  <br>  
+  
+  <h3><strong>YOUR THREADS:</strong></h3>
 
-  <h1><strong>YOUR THREADS:</strong></h1>
-
-
-
+  
 
 {{#each threads}}
 <div>
@@ -30,6 +37,7 @@
 {{/each}}
 
 
+</body>
 
 
 

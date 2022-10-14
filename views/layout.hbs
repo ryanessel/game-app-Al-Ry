@@ -14,7 +14,7 @@
 <nav>
 
 {{#if userInSession}}
-<h1>CURRENT USER: <strong>{{userInSession.username}}</strong></h1>
+<a>Hello, {{userInSession.username}}</a>
   <div>
 <a href="/change-password">Change Password</a>
 </div>
@@ -24,10 +24,18 @@
 <a href="/userProfile">Profile</a>
 </div>
 
+  <div>
+  <a href="/threads">Threads</a>
+  </div>
+
+  <div>
+  <a href="/threads/create"><strong>Start A New Thread</strong></a>
+  </div>
+
 {{#if currentUser}}
 
              <form id="logout-form" action="/logout" method="POST">
-            <button>Logout</button>
+            <button class="gamefaq-btn">Logout</button>
            </form> 
 {{else}}
 
@@ -45,13 +53,6 @@
   
   
 
-  <div>
-  <a href="/threads">Threads</a>
-  </div>
-
-  <div>
-  <a href="/threads/create">[Start A New Thread]</a>
-  </div>
 
 
 
