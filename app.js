@@ -32,6 +32,8 @@ app.use((req, res, next) => {
 });
 // 👇 Start handling routes here
 
+
+
 //--------- this can be whaterver. its when you call the local host -- this is about 
 //         |
 app.use('/', require('./routes/index'));

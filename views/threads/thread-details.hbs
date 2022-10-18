@@ -1,6 +1,9 @@
 <h1>
   thread ID : {{threadProper.oPiD}}
 </h1>
+
+<h1>{{commentAge}}</h1>
+
 <h1>
      USER IN SESSION: {{currentUser._id}}
 </h1>
@@ -26,7 +29,7 @@
 
 <div class = "comments">
 <div class="commentsHeader">
-<div class ="commentPoster">USERNAME{{posterId.username}} COMMENT POSTER ID{{posterId._id}}  </div>
+<div class ="commentPoster">USERNAME{{posterId.username}} COMMENT POSTER ID{{posterId._id}} COMMENTAGE: {{createdAt}} </div>
 
 
 </div>
@@ -55,14 +58,18 @@
 {{/each}}
 {{/unless}}
 
+{{!-- //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+//※※※※※※※※※※※※※※※※※LOGGED IN SECTION BELOW※※※※※※※※※※※※※※※※※※※※※※※※※
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- --}}
 {{#if currentUser}}
-{{#each comments.threadComments}}
+{{#each comments}}
 <h2>{{comments.[0].posterId.username}}</h2>
-
+{{this}}
 <div class = "comments">
 <div class="commentsHeader">
-<div class ="commentPoster">USERNAME{{posterId.username}} COMMENT POSTER ID{{posterId._id}}  </div>
+<div class ="commentPoster">USERNAME{{posterId.username}} COMMENT POSTER ID{{posterId._id}} CREATE AT: {{createdAt}} CMTAGE: {{age}} </div>
 
 
 </div>
