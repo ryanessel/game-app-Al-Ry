@@ -7,7 +7,36 @@ document.addEventListener(
 );
 
 
-Handlebars.registerHelper("divideMyThings", function(thing1, thing2, thing3) {
-    return thing1 / thing2 / thing3;
-  });
 
+
+
+let commentDelBtn = document.getElementById(`testBtn`)
+
+  function willYouDeleteComment() {
+   
+    confirm("Are you sure you want to delete this comment?")  
+     
+  }
+
+
+  //test btn
+setTimeout(() => {
+  document.getElementById(`testBtn`).onclick = () => {
+    
+    willYouDeleteComment();
+
+  }
+
+}, 500)
+ //comment delete button
+
+
+ document.getElementById(`comment-del-btn`).onclick = () => {
+  willYouDeleteComment();
+  if (willYouDeleteComment === true){
+   console.log("IT WORKS")
+  } else {return}
+ 
+}
+
+module.exports = { willYouDeleteComment }

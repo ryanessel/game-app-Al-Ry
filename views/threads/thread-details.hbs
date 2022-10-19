@@ -1,11 +1,8 @@
-<h1>
-  thread ID : {{threadProper.oPiD}}
-</h1>
 
-<h1>{{commentAge}}</h1>
+
 
 <h1>
-     USER IN SESSION: {{currentUser._id}}
+     USER IN SESSION: {{currentUser.username}}
 </h1>
 <div class="threadTitleLine">
 <h1>{{threadProper.title}}</h1> 
@@ -29,9 +26,9 @@
 
 <div class = "comments">
 <div class="commentsHeader">
-<div class ="commentPoster">USERNAME{{posterId.username}} COMMENT POSTER ID{{posterId._id}} COMMENTAGE: {{createdAt}} </div>
+<div class ="commentPoster">USERNAME{{posterId.username}}  </div>
 
-
+{{!-- COMMENT POSTER ID{{posterId._id}} COMMENTAGE: {{createdAt}} --}}
 </div>
 {{text}}
 
@@ -42,7 +39,7 @@
 {{#if canUserModify}}
   <div> <a href="/comment/{{_id}}/edit">EDIT COMMENT</a></div>
 <form action="/comment/{{_id}}/delete" method="post">
-    <button class="gamefaq-btn">DELETE COMMENT</button>
+    <button id="comment-del-btn" class="gamefaq-btn">DELETE COMMENT</button>
      {{#if threadId}}
   <input style="display: none" type="text" name="threadId" value="{{threadProper}}" />
  {{/if}}
@@ -64,12 +61,17 @@
 
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- --}}
 {{#if currentUser}}
+
 {{#each comments}}
-<h2>{{comments.[0].posterId.username}}</h2>
-{{this}}
+
+
 <div class = "comments">
 <div class="commentsHeader">
-<div class ="commentPoster">USERNAME{{posterId.username}} COMMENT POSTER ID{{posterId._id}} CREATE AT: {{createdAt}} CMTAGE: {{age}} </div>
+  
+<div class ="commentPoster">USERNAME: {{posterId.username}} | POSTED:{{minutes}} mins, {{hours}} hours, {{days}} days  ago</div>
+
+{{!-- CREATED AT: {{createdAt}} --}}
+{{!-- COMMENT POSTER ID: {{posterId._id}} --}}
 
 
 </div>
@@ -84,12 +86,13 @@
   <button class="gamefaq-btn" onclick="window.location.href='/comment/{{_id}}/edit?threadId={{../threadProper._id}}';" >EDIT COMMENT</button>
   <br>
   <br>
-<form action="/comment/{{_id}}/delete" method="post">
-    <button class="gamefaq-btn">DELETE COMMENT</button>
+<form  action="/comment/{{_id}}/delete" method="post">
+    <button id="comment-del-btn" class="gamefaq-btn">DELETE COMMENT</button>
      {{#if threadId}}
   <input style="display: none" type="text" name="threadId" value="{{threadProper}}" />
  {{/if}}
 </form>
+
 
 
 {{else}}
@@ -102,7 +105,7 @@
 {{/each}}
 {{/if}}
 <div>
-   BIG TEST {{threadProper._id}}
+
   
 </div>
 <br>
@@ -117,5 +120,7 @@
     </div>
 
 </form>
+
+<button id="testBtn">TEST ME</button>
 
 

@@ -48,6 +48,10 @@ router.get('/comment/:id/edit', (req, res, next) => {
 
 
 //POST ROUTE FOR COMMENT EDIT PAGE
+
+
+
+
 router.post('/comment/:id/edit', (req, res, next)=>{
 
     Comment.findByIdAndUpdate( req.params.id, {
@@ -65,21 +69,30 @@ router.post('/comment/:id/edit', (req, res, next)=>{
 
 })
 
+ 
 router.post('/comment/:id/delete', (req, res, next)=>{
 
+
+    
     Comment.findByIdAndRemove(req.params.id)
+    
     .then((response)=>{
-        console.log({THEPOSTRESPONSE:response})
+
+     
+        
+      
+            console.log({THEPOSTRESPONSE:response})
        
-        console.log(req.body.threadProper)
-        res.redirect('back');
+            console.log(req.body.threadProper)
+            res.redirect('back');
+        
+
     })
     .catch((err)=>{
         console.log(err);
     })
 
 });
-
 
 
 
