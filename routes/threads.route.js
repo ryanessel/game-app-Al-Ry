@@ -226,7 +226,7 @@ router.get(`/threads/create`, isLoggedIn, (req, res) =>{
     
     router.post('/thread/:id/delete', (req, res, next)=>{
 
-
+     console.log(req.params.id)
         
         Thread.findByIdAndRemove(req.params.id)
         .then((response)=>{

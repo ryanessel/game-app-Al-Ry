@@ -69,28 +69,35 @@ router.post('/comment/:id/edit', (req, res, next)=>{
 
 })
 
- 
 router.post('/comment/:id/delete', (req, res, next)=>{
-
-
+    console.log("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
+    console.log({COMMENTID: req.params.id})
+    console.log("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-")
+        Comment.findByIdAndRemove(req.params.id)
     
-    Comment.findByIdAndRemove(req.params.id)
+        .then((response)=>{
     
-    .then((response)=>{
+         
+            
+          
+                console.log({THEPOSTRESPONSE:response})
+           
+                console.log(req.body.threadProper)
 
-     
-        
+            
+
+                res.redirect(`back`);
+                
+            
+    
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    
       
-            console.log({THEPOSTRESPONSE:response})
-       
-            console.log(req.body.threadProper)
-            res.redirect('back');
-        
-
-    })
-    .catch((err)=>{
-        console.log(err);
-    })
+      
+    
 
 });
 
